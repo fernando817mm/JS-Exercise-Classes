@@ -40,10 +40,27 @@ class Airplane {
       - Give instances of Person a method `.toString()`:
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
-  
- class Person {
-    
+
+//redundant comment
+
+class Person {
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
   }
+  eat(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible);
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`;
+  }
+}
   
   /*
     TASK 2
@@ -59,9 +76,29 @@ class Airplane {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- class Car {
-    
+class Car {
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
   }
+  fill(gallons){
+    this.tank += gallons;
+    //this.tank = this.tank + gallons;
+  }
+  drive(distance){
+    const drivableMiles = this.tank * this.milesPerGallon;
+    if(distance <= drivableMiles){
+      this.odometer += distance;
+      this.tank -= (distance / this.milesPerGallon);
+    }else{
+      this.odometer += drivableMiles;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles!`
+    }
+  }
+}
   
   /*
     TASK 3
@@ -75,9 +112,24 @@ class Airplane {
           + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
           + {name} and {location} of course come from the instance's own properties.
   */
- class Lambdasian {
-    
+class Lambdasian {
+  constructor(attr){
+    this.name = attr.name;
+    this.age = attr.age;
+    this.location = attr.location;
   }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
+}
+
+const fernando = new Lambdasian({
+  name: 'Fernando',
+  age: 20,
+  location: 'DFW'
+})
+
+console.log(fernando.speak());
   
   /*
     TASK 4
@@ -93,9 +145,36 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
+class Instructor extends Lambdasian{
+  constructor(attr){
+    super(attr);
+    this.specialty = attr.specialty;
+    this.favLanguage = attr.favLanguage;
+    this.catchPhrase = attr.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
+}
 
- }
+const aissata = new Instructor({
+  name: 'Aissata',
+  age: 27,
+  location: 'Georgia',
+  specialty: 'eating',
+  favLanguage: 'not JS',
+  catchPhrase: 'so much pressure, I dont know'
+})
+
+console.log(aissata);
+
+console.log(aissata.demo('Web Dev'));
+
+console.log(aissata.grade({name: 'Aissata'}, 'Web Dev'));
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -111,10 +190,41 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
- }
-  
+class Student extends Lambdasian{
+  constructor(attr){
+    super(attr);
+    this.previousBackground = attr.previousBackground;
+    this.className = attr.className;
+    this.favSubjects = attr.favSubjects;
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects}!`;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+}
+
+const brain = new Student({
+  name: 'Brain',
+  age: 32,
+  location: 'Bikini Bottom',
+  previousBackground: 'Retail',
+  className: 'Web45',
+  favSubjects: ['HTML', ' CSS', ' JS']
+});
+
+console.log(brain);
+
+console.log(brain.listSubjects());
+
+console.log(brain.PRAssignment('Art'));
+
+console.log(brain.sprintChallenge('HTML'));
+
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
@@ -128,9 +238,44 @@ class Airplane {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
- }
+
+class ProjectManager extends Instructor{
+  constructor(attr){
+    super(attr);
+    this.gradClassName = attr.gradClassName;
+    this.favInstructor = attr.favInstructor;
+  }
+  standUp(slackChannel){
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  }
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
+}
+
+const benito = new ProjectManager({
+  name: 'Benito',
+  age: 1,
+  location: 'DFW',
+  specialty: 'barking',
+  favLanguage: 'dog',
+  catchPhrase: 'woof! woof!',
+  gradClassName: 'Woof Academy 2021',
+  favInstructor: 'Fernando'
+});
+
+console.log(benito);
+
+console.log(benito.speak());
+
+console.log(benito.demo('Licking Butt'));
+
+console.log(benito.grade({name: 'Bebito'}, 'Licking Paw'));
+
+console.log(benito.standUp('Dog2k21'));
+
+console.log(benito.debugsCode({name: 'Fer'}, 'Ball'));
+
   /*
     STRETCH PROBLEM (no tests!)
       - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
