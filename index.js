@@ -145,9 +145,36 @@ console.log(fernando.speak());
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
+class Instructor extends Lambdasian{
+  constructor(attr){
+    super(attr);
+    this.specialty = attr.specialty;
+    this.favLanguage = attr.favLanguage;
+    this.catchPhrase = attr.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject){
+    return `${student} receives a perfect score on ${subject}`
+  }
+}
 
- }
+const aissata = new Instructor({
+  name: 'Aissata',
+  age: 27,
+  location: 'Georgia',
+  specialty: 'eating',
+  favLanguage: 'not JS',
+  catchPhrase: 'so much pressure, I dont know'
+})
+
+console.log(aissata);
+
+console.log(aissata.demo('Web Dev'));
+
+console.log(aissata.grade('Aissata', 'Web Dev'));
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -163,9 +190,9 @@ console.log(fernando.speak());
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
- }
+class Student {
+  
+}
   
   /*
     TASK 6
