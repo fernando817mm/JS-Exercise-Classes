@@ -190,10 +190,41 @@ console.log(aissata.grade('Aissata', 'Web Dev'));
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
-class Student {
-  
+class Student extends Lambdasian{
+  constructor(attr){
+    super(attr);
+    this.previousBackground = attr.previousBackground;
+    this.className = attr.className;
+    this.favSubjects = attr.favSubjects;
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects}!`;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
 }
-  
+
+const brain = new Student({
+  name: 'Brain',
+  age: 32,
+  location: 'Bikini Bottom',
+  previousBackground: 'Retail',
+  className: 'Web45',
+  favSubjects: ['HTML', ' CSS', ' JS']
+});
+
+console.log(brain);
+
+console.log(brain.listSubjects());
+
+console.log(brain.PRAssignment('Art'));
+
+console.log(brain.sprintChallenge('HTML'));
+
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
@@ -207,9 +238,9 @@ class Student {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
+class ProjectManager {
      
- }
+}
   /*
     STRETCH PROBLEM (no tests!)
       - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
